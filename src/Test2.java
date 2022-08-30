@@ -9,6 +9,7 @@ public class Test2 {
         for (int i = 0; i < n; i++) {
             ans += 2;
             ans -= 2;
+            ans += 1;
         }
         System.out.println(ans);
 
