@@ -10,6 +10,7 @@ public class Test2 {
             ans += 2;
             ans -= 2;
             ans += 1;
+            ans--;
         }
         System.out.println(ans);
 
