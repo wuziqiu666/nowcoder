@@ -3,7 +3,9 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
-        11111111111111
+        int a = 7;
+
+        a += 1;
         in.close();
     }
 }
