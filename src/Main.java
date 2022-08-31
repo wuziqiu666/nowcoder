@@ -8,10 +8,6 @@ public class Main {
     }
 }
 
-class Solution {
-    public void slove() {}
-}
-
 class Test2 {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
