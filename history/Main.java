@@ -4,38 +4,65 @@ public class Main {
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
 
+        // String a = in.next();
+        // String b = in.next();
+
+        String a = "aba";
+        String b = "ab";
         Solution solution = new Solution();
-        int n = in.nextInt();
-        for (int i = 0; i < n; i++) {
-            int a = in.nextInt();
-            long ans = solution.solve(a);
-            System.out.println(ans);
-        }
+        int t = solution.maxMatch(a, b);
+        System.out.println(t);
+
         in.close();
     }
+
 }
 
 class Solution {
+    int[] next;
 
-    public long solve(int num) {
-        if ((num & 1) == 0) {
-            return num;
-        }
-        String s = Integer.toString(num);
-        int site = 0;
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (((int) (c - '0') & 1) == 0) {
-                site = i;
-                break;
+    public void makeNext(char[] charArray) {
+        int n = charArray.length;
+        next = new int[n];
+        next[0] = -1;
+        int j = 0;
+        int k = 0;
+        while (j < n - 1) {
+            if (charArray[j] == charArray[k] || k == -1) {
+                next[j + 1] = k + 1;
+                k++;
+                j++;
+            } else {
+                k = next[k];
             }
         }
-        if (site == 0) {
-            return -1;
+    }
+
+    public int maxMatch(String a, String b) {
+        makeNext(b.toCharArray());
+        int sitea = 0;
+        int siteb = 0;
+        int ans = 0;
+        int tmp = 0;
+        while (sitea < a.length()) {
+            if (a.charAt(sitea) == b.charAt(siteb)) {
+                sitea++;
+                siteb++;
+                tmp++;
+            } else if(siteb >= 0){
+                siteb = next[siteb];
+                ans = Math.max(ans, tmp);
+                tmp = siteb;
+            } else {
+                sitea++;
+            }
+            if (siteb == b.length()) {
+                ans = Math.max(ans, tmp);
+            }
+            if (sitea == a.length()) {
+                ans = Math.max(ans, tmp);
+            }
         }
-        StringBuilder sBuilder = new StringBuilder(s);
-        sBuilder.replace(s.length() - 1, s.length(), s.substring(site, site + 1));
-        sBuilder.replace(site, site + 1, s.substring(s.length() - 1, s.length()));
-        return Long.parseLong(sBuilder.toString());
+        return ans;
     }
 }
